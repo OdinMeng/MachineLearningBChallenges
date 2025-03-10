@@ -1,5 +1,5 @@
 # Machine Learning Challenge Report
-## Challenge 0: Il Problema delle Autenticazione delle Banconote
+## Challenge 0: Il Problema dell'Autenticazione delle Banconote
 ## *Dino Meng, SM3201466*
 
 ---
