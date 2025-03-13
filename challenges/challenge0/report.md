@@ -93,12 +93,7 @@ $\hrulefill$
 # Risultati
 Riportiamo la performance di ogni modello, quantificata dalla *accuracy* sul *test dataset*, in formato tabulare.
 
-| **Modello**                        | **Test F1-score**\* |
-|------------------------------------|---------------------|
-| Regressione Logistica (Sklearn)    | 0.3333              |
-| Regressione Logistica (LASSO)      | 0.6666              |
-| Regressione Logistica (RIDGE)      | 0.6666              |
-| Regressione Logistica (ElasticNet) | 0.6666              |
+DA RIFARE
 
 > \* *La test F1-score è troncata fino alla quarta cifra decimale.*
 
@@ -107,15 +102,15 @@ Come possiamo vedere, la regressione logistica regolarizzata produce una prestaz
 
 Inoltre riportiamo la matrice di confusione delle predizioni riportate dalla regressione logistica secondo *Scikit-Learn* (fig. 1):
 
-> ![Scikit-Learn Implemented LR Confusion Matrixes](./img/sklearn_matrixes.png){ width=500px }
+DA RIFARE
 
 Invece notiamo che le matrici di confusioni delle predizioni riportate delle regressioni logistiche regolarizzate sono tutte uguali (fig. 2).
 
-> ![Manually Implemented Elasticnet-regularized LR Confusion Matrixes](./img/elasticnet_matrixes.png){ width=500px }
+DA RIFARE
 
 Inoltre riportiamo la curva ROC delle regressioni logistiche regolarizzate (fig. 3)
 
-> ![ROC Curve of Manually Implemented Elasticnet-regularized LR](./img/roc.png){ width=400px }
+DA RIFARE
 
 Alla fine, riportiamo anche i *scatterplot* (diagrammi di dispersione) delle variabili numeriche trasformate, per dare un panorama completo del nostro dataset (fig. 4).
 
@@ -124,16 +119,16 @@ Alla fine, riportiamo anche i *scatterplot* (diagrammi di dispersione) delle var
 $\hrulefill$
 
 # Discussione
-Come prima osservazione vediamo che c'è un comportamento differente dei modelli a seconda dell'uso della regolarizzazione. In assenza di regolarizzazione, il modello tendeva a classificare le istanze prevalentemente come negative; invece con la regolarizzazione, il modello tendeva a classificare le istanze come positive. 
-
-Questo suggerisce che, in assenza di regolarizzazione, la regressione logistica era in *overfit* sulle istanze negative. Tuttavia, con analisi approfondite vediamo che i modelli regolarizzati erano potenzialmente in stato di *underfit*: infatti presentavano comunque un test F1-score basso sia nella fase di training che di validazione; inoltre, vediamo che l'area sotto la curva ROC (AOC) ha un valore nettamente inferiore $\text{AOC} \ll 0.5$ (cfr. fig. 3), che suggerisce una debole potenza predittiva della regressione logistica regolarizata.
-
-Una delle possibili cause di questo problema è lo spazio di dati in sè: essa ha un buon numero di variabili (6) ma un numero limitato di istanze (solo 50), comportando così una difficoltà intrinseca nell'apprendimento efficace. Inoltre, dai diagrammi di dispersione (cfr. fig. 3) si evince che il problema non è neanche linearmente separabile, ampliando ulteriormente le difficoltà nell'apprendimento dei modelli.
+DA RIFARE
 
 $\hrulefill$
 
 # Conclusione
 In un progetto successivo si può mitigare le problematiche descritte nella discussione usando tecniche più raffinate per trasformare il dataset. 
 
-Per esempio si potrebbe usare metodi non supervisionati per ridurre la dimensionalità del dataset (come PCA o T-SNE), trovare trasformazioni opportune per il dataset che rende il problema linearmente separabile o anche usare algoritmi di Machine Learning più complessi (come reti neurali, modelli Ensemble, ...).
+Per esempio si potrebbe usare metodi non supervisionati per ridurre la dimensionalità del dataset (come PCA o T-SNE), trovare  trasformazioni opportune per il dataset che rende il problema linearmente separabile.
+
+Inoltre si potrebbe anche usare algoritmi di Machine Learning che sono in grado di imparare fenomeni più complessi (come reti neurali, modelli Ensemble, ...), sacrificando in cambio della semplicità e interpretabilità del modello. 
+
+Poiché le confusioni di matrici ci suggeriscono che il metodo per separare i dati di allenamento e di testing erano squilibrati, si potrebbe suggere di usare metodi che forniscono delle stime più robuste sulle prestazioni del modello (ad esempio si potrebbe considerare il metodo della convalida incrociata stratificata).
 
