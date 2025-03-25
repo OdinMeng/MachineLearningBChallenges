@@ -7,6 +7,9 @@ output: pdf_document
 $\hrulefill$
 
 # Introduzione
+
+\centerline{ \textit{ Keywords: Machine Learning, Clustering, Dimensionality Reduction, Predictive Models, Banknotes Classification } }
+
 Il dataset è *"estratto da immagini scattate a esemplari simili a banconote, sia autentici che contraffatti. Per la digitalizzazione è stata utilizzata una telecamera industriale, solitamente impiegata per l’ispezione di stampe. Le immagini finali hanno una risoluzione di 400x400 pixel. A causa dell'obiettivo e della distanza dall'oggetto esaminato, sono state ottenute immagini in scala di grigi con una risoluzione di circa 660 dpi. Per l'estrazione delle caratteristiche dalle immagini è stato utilizzato uno strumento di Trasformata Wavelet"* [1]. Le variabili estratte dalle trasformate Wavelet sono le seguenti:
 
 * Varianza (`variance`): variabile continua
@@ -20,8 +23,6 @@ Il dataset è *"estratto da immagini scattate a esemplari simili a banconote, si
 * Classe (`class`): variabile categorica, ha valore `0` oppure `1`
 
 In questo report si riporteranno metodi per effettuare *clustering* e *modellazione predittiva* sul dataset estratto, per ottenere dei risultati significativi.
-
-> *Keywords: Machine Learning, Clustering, Dimensionality Reduction, Predictive Models, Banknotes Classification*
 
 [1] Lohweg, V. (2012). Banknote Authentication [Dataset]. UCI Machine Learning Repository. [(https://doi.org/10.24432/C55P57)](https://doi.org/10.24432/C55P57).
 
@@ -97,7 +98,7 @@ Concentrandoci invece sulla fase del *supervised learning*, riportiamo il *barpl
 # Discussione
 Commentiamo innanzitutto i risultati relativi all'*unsupervised learning*.
 
-La *PCA* non è riuscita a trasformare il dataset originario in un problema che sia separabile, infatti le classi sono sovrapposte tra di loro, anche scegliendo di scegliere la proiezione in tre dimensioni (fig. \ref{PCA}). Infatti, usando la tecnica di clustering *K-Means* vediamo che questa fallisce a riprodurre le classi fedelmente, nonché a produrre dei *cluster* ben separati tra di loro (fig. \ref{KMeans_PCA}).
+La *PCA* non è riuscita a trasformare il dataset originario in un problema che sia separabile, infatti le classi sono sovrapposte tra di loro, neanche scegliendo di effettuare la proiezione in tre dimensioni (fig. \ref{PCA}). Infatti, usando la tecnica di clustering *K-Means* vediamo che questa fallisce a riprodurre le classi fedelmente, nonché a produrre dei *cluster* ben separati tra di loro (fig. \ref{KMeans_PCA}).
 
 Per quanto riguarda invece la *T-SNE*, questa riesce invece a trasformare il dataset originario in un dataset linearmente separabile, infatti è possibile scandire una retta che divida le due classi (ad eccezione di alcuni punti separabili) (fig. \ref{TSNE}). Infatti, il *clustering* gerarchico è in grado di riprodurre quasi fedelmente le clasi orinarie (fig. \ref{clustering_TSNE}). 
 
@@ -111,7 +112,7 @@ Osserviamo che *KNN* ha avuto la migliore prestazione, con una test F1-score del
 
 Invece *Naïve Bayes* era il peggior modello, con un punteggio del 0.7987. Questo potrebbe essere dovuto al fatto che le variabili sono correlate tra di loro: infatti, con la PCA abbiamo visto che le classi non erano neanche separabili (fig. \ref{PCA}). Pertanto questa fa fallire l'ipotesi fondamentale del *Naïve Bayes*, ovvero l'indipendenza tra le variabili.
 
-Infine osserviamo che la regressione logistica si presta migliore se non subisce nessun effetto di regolarizzazione; questo ci suggerisce che la regolarizzazione potrebbe portare all'*underfitting*, col dataset usato.
+Infine osserviamo che la regressione logistica si presta migliore se non subisce nessun effetto di regolarizzazione; questo ci suggerisce che la regolarizzazione potrebbe portare all'*underfitting* col dataset usato.
 
 Siccome la prestazione dei modelli erano sufficentemente soddisfacenti, si è scelto di non effettuare la *hyperparameter tuning* (ottimizzazione degli iperparametri) sui modelli.
 
@@ -120,8 +121,8 @@ $\hrulefill$
 # Conclusione
 Il dataset che contiene informazioni sulle immagini delle banconote è complesso ed articolato, infatti i metodi *"lineari"* (come la PCA) falliscono di separare bene le classi dei dati, dove modelli più *"parametrici"* (come la *T-SNE* o la *KNN*) ottenevano risultati più soddisfacenti.
 
-Un modo per migliorare i modelli predittivi è di includere la proiezione dei dati con *T-SNE* nella fase della preparazione dei dati: infatti effettuando nuovamente la valutazione dei modelli si ottiene globalmente un buon incremento, da una media globale del 0.7987 alla media globale 0.9934 (in particolare *Naïve Bayes* ha ottenuto un incremento drastico, dal 0.7987 al 0.9753).
+Un modo per migliorare i modelli predittivi è di includere la proiezione dei dati con *T-SNE* nella fase della preparazione dei dati: infatti effettuando nuovamente la valutazione dei modelli si ottiene globalmente un buon incremento, da una media globale del 0.7987 alla media globale 0.9934: *Naïve Bayes* ha ottenuto l'incremento più drastico, dal 0.7987 al 0.9753.
 
-Tuttavia, per giustificare in una maniera più rigorosa l'uso della *T-SNE* è necessario prendere ulteriori misure precauzionali; tra cui utilizzare la *T-SNE* usando parametri più diversi (in particolare con Scikit-Learn, il parametro più importante è`perplexity`) e poi di rivalutare i modelli. Questo ci assicurerebbe che i modelli non stiano *overfittando* sulle distorsioni prodotte dalla *T-SNE*, dunque validando effettivamente la robustezza della tecnica usata.
+Tuttavia, per giustificare in una maniera più rigorosa l'uso della *T-SNE* è necessario prendere ulteriori misure precauzionali; tra cui utilizzare la *T-SNE* usando parametri più diversi (in particolare con Scikit-Learn, il parametro più importante è `perplexity`) e poi di rivalutare i modelli. Questo ci assicurerebbe che i modelli non stiano *overfittando* sulle distorsioni prodotte dalla *T-SNE*, dunque validando effettivamente la robustezza della tecnica usata.
 
 Un altro modo per garantirci la robustezza di questa tecnica è quella di includere metodi di valutazione dei modelli più robusti, come la convalida incrociata.

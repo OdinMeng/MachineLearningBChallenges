@@ -7,9 +7,10 @@ output: pdf_document
 $\hrulefill$
 
 # Introduzione
-In questo report si descrive un resoconto di un progetto di Machine Learning, nel quale si prepara un dataset contenente informazioni su 50 start-up statunitensi - tra cui varie spese, lo stato e il profitto - e lo si analizza usando i metodi dell'apprendimento supervisionato. In particolare si va a usare i metodi della regressione logistica, usando delle eventuali regolarizzazioni per investigare sui suoi effetti.
 
-> *Keywords: Machine Learning, Logistic Regression, Regularization, LASSO, Ridge, ElasticNet*
+\centerline{ \textit{ Keywords: Machine Learning, Logistic Regression, Regularization, LASSO, Ridge, ElasticNet } }
+
+In questo report si descrive un resoconto di un progetto di Machine Learning, nel quale si prepara un dataset contenente informazioni su 50 start-up statunitensi - tra cui varie spese, lo stato e il profitto - e lo si analizza usando i metodi dell'apprendimento supervisionato. In particolare si va a usare i metodi della regressione logistica, usando delle eventuali regolarizzazioni per investigare sui suoi effetti.
 
 $\hrulefill$
 
