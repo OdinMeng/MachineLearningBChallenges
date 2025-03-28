@@ -181,7 +181,7 @@ Infatti, il modello non-kernel (ossia la Ridge Regression) riporta un punteggio 
 
 Prima di concludere il commento sui punteggi dei modelli, osserviamo come variano le predizioni dei modelli a seconda dei valori degli iperparametri scelti. 
 
-Per quanto riguarda il kernel gaussiano (*RBF*), abbiamo fatto variare il parametro $\gamma$ che corrisponde all'ampiezza reciproca del kernel gaussiano [1]. Ovvero, $\gamma = \frac{1}{\sigma}$. Osserviamo che per valori piccoli di $\gamma \to 0$, la kernel regression crea le predizioni con una curva più liscia (fig. \ref{variations1}). Al contrario, per valori più grandi la curva si adatta di più alla funzione target ([@eq:nonlinear]). Tuttavia per valori troppo grandi $\gamma \to +\infty$, la curva ha un'ampiezza troppo ridotta: osservando il comportamento del modello sul dataset del testing, otteniamo una linea dritta con dei *"salti"* (fig. \ref{variations1_test}).
+Per quanto riguarda il kernel gaussiano (*RBF*), abbiamo fatto variare il parametro $\gamma$ che corrisponde all'ampiezza reciproca del kernel gaussiano [1]. Ovvero, $\gamma = \frac{1}{\sigma^2}$. Osserviamo che per valori piccoli di $\gamma \to 0$, la kernel regression crea le predizioni con una curva più liscia (fig. \ref{variations1}). Al contrario, per valori più grandi la curva si adatta di più alla funzione target ([@eq:nonlinear]). Tuttavia per valori troppo grandi $\gamma \to +\infty$, la curva ha un'ampiezza troppo ridotta: osservando il comportamento del modello sul dataset del testing, otteniamo una linea dritta con dei *"salti"* (fig. \ref{variations1_test}).
 
 Da ciò deduciamo che per valori estremi di $\gamma$ corrispondono a casi di *underfitting* e *overfitting*. Per il valore di circa $\gamma = 1.0$, otteniamo una *perfect fit* al problema.
 
@@ -189,7 +189,7 @@ Passando ora al kernel polinomiale, abbiamo sperimentato gradi diversi del polin
 
 Infine, concludiamo che il kernel che si adatta meglio al problema è il kernel gaussiano, con una R2 score del 0.9810 ([@tbl:performances1]). Questa potrebbe essere dovuta alla natura periodica della funzione da imparare ([@eq:nonlinear]), per cui delle curve gaussiane sono in grado di adattarsi meglio.
 
-[1] [Documentazione di Scikit-Learn sul Kernel Gaussiano](https://scikit-learn.org/stable/modules/generated/sklearn.metrics.pairwise.rbf_kernel.html#sklearn.metrics.pairwise.rbf_kernel)
+[1] [Documentazione di Scikit-Learn sul Kernel Gaussiano](https://scikit-learn.org/stable/modules/metrics.html#rbf-kernel)
 
 [2] [Documentazione di Scikit-Learn sul Kernel Ridge Regression](https://scikit-learn.org/stable/modules/generated/sklearn.kernel_ridge.KernelRidge.html)
 
