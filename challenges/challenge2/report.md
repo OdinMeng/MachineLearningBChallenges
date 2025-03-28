@@ -2,6 +2,7 @@
 title: Machine Learning Challenge 2 Report
 author: Dino Meng [SM3201466]
 output: pdf_document
+colorlinks: true
 ---
 
 $\hrulefill$
@@ -12,16 +13,18 @@ $\hrulefill$
 
 L'obbiettivo di questo report è quello di esplorare le potenzialità dei *kernel methods*, applicandoli a problemi di natura diversa.
 
-Useremo dei dataset generati artificialmente che vanno a rappresentare problemi di tipologie diverse, tra cui la regressione, riduzione della dimensionalità e la classificazione. 
+Useremo dei dataset generati artificialmente che vanno a rappresentare problemi di tipologie diverse, tra cui la regressione, riduzione della dimensionalità e la classificazione e sperimenteremo più tecniche del *Machine Learning*, sia *unsupervised* che *supervised*. 
 
-??? #TODO
+Dopodiché confronteremo i risultati per ottenere delle conclusioni sugli effetti dei metodi *kernel* in ambito dell'analisi dei dati.
 
 $\hrulefill$
 
 # Metodologia
-In questa sezione si descrivono i passaggi svolti per questo progetto.
+In questa sezione si descrivono i passaggi svolti per questo progetto. 
 
-## Dataset 1: Regressione
+Si dichiara che sono state usate le implementazioni di *Scikit-Learn* per l'intero progetto.
+
+## Dataset 1: Funzione Non Lineare
 Nel primo problema si genera un dataset a due variabili, di cui una è esplanatoria (i.e. indipendente) e l'altra è la variabile target. Denoteremo queste variabili rispettivamente con $x, y$.
 
 In particolare, definiremo $y=f(x)$ sull'intervallo $x \in [-5,5]$. La funzione da imparare generata è la seguente funzione non-lineare:
@@ -55,23 +58,29 @@ Per trovare la migliore combinazione dei iperparametri, abbiamo effettuato due *
 
 Infine, per scegliere il miglior modello, abbiamo valutato il migliore modello gaussiano e polinomiale sul dataset di testing.
 
-## Dataset 2: Riduzione di Dimensionalità e Classificazione
+## Dataset 2: Due Circonferenze
 Nel problema successivo si affronta uno dei problemi di classificazioni più noti - e quasi tipica per i metodi kernel: il dataset a due dimensioni e a due classi, disposte su due cerchi concentrici (fig. \ref{circles}). 
-
-![Two Circles \label{circles}](./images/circles.png){ width=45% }
 
 Prima di tutto, abbiamo applicato l'analisi delle componenti principali (*PCA*) sul dataset e proiettando la trasformazione sia in due che una dimensione. Dopodiché, abbiamo *fittato* una macchina a supporto vettoriale soft-margin (*SVM*) non kernelizzato sul dataset del training, e l'abbiamo valutato per fornire una *baseline* per i modelli successivi.
 
+Per valutare i modelli, abbiamo calcolato la F1-score su entrambi i *split* del dataset.
+
 Dopodiché abbiamo applicato la *PCA* kernelizzata usando il kernel gaussiano col parametro $\gamma = 3$, e per verificare il ben-funzionamento del kernel scelto abbiamo addestrato e valutato una *SVM* kernelizzata col kernel selezionato. 
 
-## Dataset 3: Riduzione di Dimensionalità e Classificazione (2)
+![Two Circles \label{circles}](./images/circles.png){ width=35% }
+
+\newpage
+
+## Dataset 3: Classificazione
 Per l'ultimo problema abbiamo generato un dataset con la funzione `make_classification()` di Scikit-Learn (modulo `datasets`), che va a generare un problema di classificazione a due classi con 20 variabili.
 
 Abbiamo dunque trasformato il dataset con la *PCA* e abbiamo preso la sua proiezione in due e tre dimensioni per dare una semplice visualizzazione dei dati. Dopodiché, abbiamo allenato e valutato una *SVM* sul dataset, per ottenere delle *performance baseline*.
 
-Dopodichè abbiamo allenato e valutato più *SVM kernel* sul dataset, fornendo come parametri quelli di default su Scikit-Learn.
+Per valutare i modelli, abbiamo calcolato la F1-score su entrambi i *split* del dataset.
 
-Per determinare quale fosse la miglior scelta del kernel con la migliore combinazione di iperparametri, abbiamo deciso di effettuare una ricerca casuale (*randomized search*) valutata mediante la convalida incrociata. La scelta di una ricerca casuale rispetto ad una *Grid Search* è motivata dal fatto che stiamo effettuando una ricerca su un dominio di iperparametri piuttosto ampio, infatti tre parametri ricevono numeri continui.
+Dopodichè abbiamo allenato e valutato più *SVM kernel* sul dataset, fornendo come parametri quelli forniti di *default* da Scikit-Learn.
+
+Per determinare quale fosse la miglior scelta del kernel con la migliore combinazione di iperparametri, abbiamo deciso di effettuare una ricerca casuale (*randomized search*) valutata mediante la convalida incrociata. La scelta di una ricerca casuale rispetto ad una *Grid Search* è motivata dal fatto che stiamo effettuando una ricerca su un dominio di iperparametri piuttosto ampio, infatti tre parametri ricevono numeri continui. Precisamente, effettueremo 5000 ricerche casuali.
 
 In particolare, abbiamo definito il dominio degli iperparametri della ricerca casuale con le seguenti variabili aleatorie (o liste, nel caso discreto):
 
@@ -90,7 +99,7 @@ In particolare, abbiamo definito il dominio degli iperparametri della ricerca ca
 $\hrulefill$
 
 # Risultati
-## Dataset 1
+## Dataset 1: Funzione Non Lineare
 Riportiamo le prestazioni di tutti i modelli addestrati e valutati (sul test dataset), informato tabulare:
 
 |         **Kernel**         | **Valutazione** | **Punteggio** |
@@ -112,16 +121,18 @@ Infine, riportiamo i grafici delle predizioni dei modelli kernel con la variazio
 
 ![RBF Kernel Variations \label{variations1}](./images/variations1.png)
 
+![RBF Kernel Variations (test) \label{variations1_test}](./images/variations1_test.png)
+
 ![Polynomial Kernel Variations \label{variations2}](./images/variations2.png)
 
-## Dataset 2
+\newpage
+
+## Dataset 2: Due Circonferenze
 Riportiamo innanzitutto le rappresentazioni grafiche delle trasformazioni fornite dalla PCA, una di cui non-kernel e l'altra kernelizzata (fig. \ref{PCA_dataset2}, \ref{KPCA_dataset2}).
 
 ![PCA Projections \label{PCA_dataset2}](./images/PCA_dataset2.png){ width=60%}
 
 ![KPCA Projections \label{KPCA_dataset2}](./images/KPCA_dataset2.png){ width=60% }
-
-\newpage
 
 Infine, i punteggi F1 (macro media) dei modelli SVM sono le seguenti:
 
@@ -132,8 +143,9 @@ Infine, i punteggi F1 (macro media) dei modelli SVM sono le seguenti:
 
 : Models Performances on Dataset 2 {#tbl:performances2}
 
+\newpage
 
-## Dataset 3
+## Dataset 3: Classificazione
 Si plotta innanzitutto le proiezioni in due e tre dimensioni della PCA sul dataset (fig. \ref{PCA_3_3D})
 
 ![PCA Transformation in 2D, 3D \label{PCA_3_3D}](./images/PCA_3_3D.png){ width=60% }
@@ -159,64 +171,62 @@ Adesso riportiamo le performance dei modelli addestrati sul dataset, usando la F
 
 Infine, enunciamo che il miglior modello trovato dalla ricerca casuale è il **kernel PCA col kernel lineare**. Imperocchè il kernel è lineare, gli altri iperparametri sono irrilevanti e dunque omessi. 
 
-\newpage
+$\hrulefill$
 
 # Discussione
-## Dataset 1
+## Dataset 1: Funzione Non Lineare
 Osservando le performance dei modelli, è evidente che la kernelizzazione è un fattore necessario per affrontare il problema. 
 
 Infatti, il modello non-kernel (ossia la Ridge Regression) riporta un punteggio R2 basso (0.2263, [@tbl:performances1]) e dalla rappresentazione grafica del dataset si evince che il modello non è abbastanza complesso per spiegare la non-linearità della funzione target (fig. \ref{function}, [@eq:nonlinear]).
 
-Il miglior kernel che 
+Prima di concludere il commento sui punteggi dei modelli, osserviamo come variano le predizioni dei modelli a seconda dei valori degli iperparametri scelti. 
 
-## Dataset 2
+Per quanto riguarda il kernel gaussiano (*RBF*), abbiamo fatto variare il parametro $\gamma$ che corrisponde all'ampiezza reciproca del kernel gaussiano [1]. Ovvero, $\gamma = \frac{1}{\sigma}$. Osserviamo che per valori piccoli di $\gamma \to 0$, la kernel regression crea le predizioni con una curva più liscia (fig. \ref{variations1}). Al contrario, per valori più grandi la curva si adatta di più alla funzione target ([@eq:nonlinear]). Tuttavia per valori troppo grandi $\gamma \to +\infty$, la curva ha un'ampiezza troppo ridotta: osservando il comportamento del modello sul dataset del testing, otteniamo una linea dritta con dei *"salti"* (fig. \ref{variations1_test}).
 
-## Dataset 3
+Da ciò deduciamo che per valori estremi di $\gamma$ corrispondono a casi di *underfitting* e *overfitting*. Per il valore di circa $\gamma = 1.0$, otteniamo una *perfect fit* al problema.
+
+Passando ora al kernel polinomiale, abbiamo sperimentato gradi diversi del polinomio e il valore di regolarizzazione reciproca $\alpha = \frac{1}{2C}$ [2]. Chiaramente si evince che aumentando il grado, otteniamo una regressione con più curve e che dunque si adatta meglio al problema (fig. \ref{variations2}). Inoltre, il parametro di regolarizzazione $\alpha$ determina la liscezza della funzione imparata, dove un numero più alto causa una curva più liscia.
+
+Infine, concludiamo che il kernel che si adatta meglio al problema è il kernel gaussiano, con una R2 score del 0.9810 ([@tbl:performances1]). Questa potrebbe essere dovuta alla natura periodica della funzione da imparare ([@eq:nonlinear]), per cui delle curve gaussiane sono in grado di adattarsi meglio.
+
+[1] [Documentazione di Scikit-Learn sul Kernel Gaussiano](https://scikit-learn.org/stable/modules/generated/sklearn.metrics.pairwise.rbf_kernel.html#sklearn.metrics.pairwise.rbf_kernel)
+
+[2] [Documentazione di Scikit-Learn sul Kernel Ridge Regression](https://scikit-learn.org/stable/modules/generated/sklearn.kernel_ridge.KernelRidge.html)
+
+## Dataset 2: Due Circonferenze
+Come nel dataset precedente, l'utilizzo dei metodi non kernel - in questo caso la *PCA* e la *SVM* - non è sufficiente per affrontare il problema di classificazione. 
+
+Guardando i grafici delle riduzioni in una e due dimensioni effettuata dalla *PCA*, vediamo che le due nuvole di dati rimangono comunque linearmente inseparabili. In una dimensione le classi si sovrappongono, e in due dimensioni il dataset rimane perlopiù uguale (fig. \ref{PCA_dataset2}). Osserviamo che il fatto che la proiezione in 2D rimane più o meno uguale è dovuto al fatto che la *PCA* tenta di trovare una rotazione per spiegare la separazione delle classi al meglio; tuttavia, data la forma del dataset, con una qualsiasi rotazione lineare, la forma geometrica dei dati rimane uguale.
+
+Il fatto che la *SVM* non kernel ha una scarsa performance, circa del 0.6 e 0.5 sui dati di training e testing ([@tbl:performances2]) - e quindi abbiamo delle stime quasi casuali - conferma le nostre deduzioni effettuate dalla *PCA*.
+
+Usando invece una *PCA kernel*, otteniamo delle classi linearmente separabili sia in una che due dimensioni (fig. \ref{KPCA_dataset2}), pertanto si ritiene che questo kernel è ideale per questo problema. Il fatto che usando la *kernel SVM* con gli stessi parametri, otteniamo un modello che *fitta* quasi perfettamente il problema con punteggio 1.00 e 0.99 ([@tbl:performances2]) conferma la buona scelta del kernel.
+
+Il fatto che il modello non fitti perfettamente al problema è dovuto ad un aspetto intrinseco del dataset, ovvero la presenza dei punti rumorosi.
+
+## Dataset 3: Classificazione
+Anticipiamo che, al contrario dei problemi precedentemente affrontati, la kernelizzazione potrebbe risultare non solo innecessaria, ma anche dannosa, portando in alcuni casi a peggiorare i risultati.
+
+Notiamo innanzittutto che l'ultimo dataset è più complesso, essendo composto da venti variabili e non solo una o due come nei dataset precedenti. Pertanto è impossibile visualizzare i dati nella sua forma intera.
+
+Dunque come punto di partenza abbiamo effettuato una riduzione della dimensionalità con la *PCA non kernel*, effettuando la proiezione in due e tre dimensioni. Notiamo che il problema ridotto in due e tre dimensioni diventa quasi linearmente separabile, ovvero le due nuvole di dati possono essere separate da un iperpiano separatore (fig. \ref{PCA_3_3D}).
+
+Il fatto che la *SVM non kernel* ci ritorna perlopiù un buon risultato (con train 1.00 e test 0.96, [@tbl:performances3]) ci conferma questa osservazione (i.e. la separabilità lineare del dataset).
+
+Effettuando più *kernel PCA*, otteniamo dei dataset che sono più o meno ugualmente linearmente separabili (fig. \ref{KPCA_3_2D}, \ref{KPCA_3_3D}). Si potrebbe pertanto pensare che la *kernelizzazione* dei metodi non fa variare i risultati in una maniera drastica.
+
+Osservando che le *performance* dei *SVM kernel* sono al meglio uguali a quella della *SVM non kernel* ([@tbl:performances3]), possiamo confermare questa deduzione. Tuttavia notiamo che in certi casi la *test score* peggiora ([@tbl:performances3]) a 0.92: questo ci suggerisce un possibile *overfit* da parte dei modelli kernelizzati, peggiorando dunque le prestazioni sul dataset di valutazione.
+
+L'elemento cruciale che emerge dalle 5000 ricerce casuali sullo spazio degli iperparametri ([@tbl:hyperparams2]), è il fatto che otteniamo comunque una *SVM* col *kernel lineare*, che è di fatto una *SVM non kernel*. Questo ci suggerisce che nonostante un'esplorazione estensiva degli iperparametri per i metodi kernel, questi vengono sempre superati dal metodo lineare (*non kernel*).
 
 $\hrulefill$
 
 # Conclusione
+I metodi *kernel* sono degli ottimi e indispensabili strumenti per affrontare problemi che presentano delle forme geometriche intrinsecamente complesse, come funzioni non-lineari ([@eq:nonlinear]) o nuvole di dati non linearmente separabili (fig. \ref{circles}).
 
-SCALETTA:
-- Introduzione: Obbiettivi (kernelizzazione vs non kernelizzazione) e quali dataset useremo (generati artificialmente)
-    - Testare la regressione ridge non kernelizzata vs kernelizzata, con un dataset composto da funzioni trigonometriche e lineari (quindi a "gobbe")
-    - Testare metodi di riduzione della dimensione kernelizzate (PCA), col make_circles dataset e con dataset più complessi (make_classification() )
-- Metodologia: descrivo COSA ho fatto, suddivido in tre parti come nel notebook
-    1
-    - EDA: vedo com'è fatto il dataset, per farmi un'idea
-    - Effettuo e valuto una ridge regression
-    - Eseguo due grid search, una per il KRR gaussiano, l'altro per il KRR polinomiale
-    - Plotto le funzioni che variano a seconda dei parametri
-    - Valuto i loro modelli migliori
-    
-    2 
-    - EDA: Visualizzo, effettuo PCA e proietto sia in due che una dimensione.
-    - Fitto una SVM lineare e lo valuto usando il test di testing
-    - Effettuo PCA kernelizzata (con gauss), proietto sia in 2D che 1D
-    - Fitto SVM kernelizzata e valuto
+Ciò non vuol dire i metodi *kernel* sono privi di difetti e possono essere sempre applicati senza problemi. A parte il possibile elevato costo computazionale con dei dataset particolarmente larghi, che non è il caso di questo studio in quanto abbiamo preso dati con un numero di esempi abbastanza piccoli (al massimo 1000), c'è anche la possibilità che i modelli *overfittino* e causano peggiori prestazioni di predizione. Come verificato nel terzo problema, questo potrebbe accadere in presenza di più variabili.
 
-    3
-    - Effettuo PCA in due e tre dimensioni
-    - Fitto SVM lineare e valuto
-    - Effettuo K-PCA con tutti i kernel possibili e proietto in due e tre dimensioni
-    - Per determinare quale kernel usare e quali iperparametri mettere, effettuo l'hyperparameter tuning con HalvingRandomSearchCV (forse da inserire in background?)
+Inoltre, un altro problema riscontrato con i problemi *kernel* è l'alta sensibilità agli iperparametri. Come notato nella seconda parte, i modelli cambiano forma (e dunque le loro prestazioni) in una maniera drastica a variare degli parametri scelti (fig. \ref{variations1}, \ref{variations2}). Pertanto, di norma potrebbe essere necessaria avere delle conoscenze sul dataset - soppratutto la loro disposizione geometrica - oppure bisogna fare delle ricerche estensive sullo spazio degli iperparametri, usando ad esempio GridSearch.
 
-- Risultati: riporto grafici e performance
+In definitiva, pur tenendo queste criticità i metodi *kernel* restano comunque degli ottimi strumenti per risolvere problemi complessi, purché siano usati con attenzione e consapevolezza.
 
-- Discussione: suddivido in tre parti
-    1. Chiaramente il modello lineare fallisce di descrivere bene la funzione target (vedere figura!)
-    I modelli kernelizzati sono abbastanza sensibili ai loro parametri:
-        - Gaussiano: gamma determine quanto il modello vada a "underfittare" o "overfittare" sul problema. In effetti determina l'ampiezza \\sigma.
-        - Polinomiale: degree determina la complessità del fitting (nel nostro caso più alto, meglio era) e alpha determina la "smoothness" della funzione imparata
-    
-    2. la PCA è insufficiente per ridurre la dimensionalità del dataset, infatti non è linearmente correlata. Usando il kernel riesco a creare una proiezione (sia in 2D che 1D) dove le classi sono linearmente separabili.
-
-    Le applicazioni del modello SVM e kernel SVM confermano
-
-    3. Il dataset è più complesso, in effetti ha dieci variabili
-
-    Ciò ha reso il processo della selezione del kernel e i suoi parametri più difficile, infatti abbiamo usato metodi di ottimizzazione degli iperparametri più sofisticati (halving random search CV)
-
-- Conclusione: riassumo gli effetti della kernelizzazione e meno sui dataset
-    - La kernelizzazione tende a migliorare i risultati, specie quando il dataset è complesso
-    - Tuttavia notiamo che è "sensibile" ai parametri che scegliamo
