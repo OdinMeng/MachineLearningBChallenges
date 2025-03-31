@@ -3,6 +3,7 @@ title: Machine Learning Challenge 2 Report
 author: Dino Meng [SM3201466]
 output: pdf_document
 colorlinks: true
+mainfont: "Comic Sans MS"
 ---
 
 $\hrulefill$
