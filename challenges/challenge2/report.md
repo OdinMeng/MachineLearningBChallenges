@@ -9,20 +9,24 @@ $\hrulefill$
 
 # Introduzione
 
-\centerline{ \textit{ Keywords: Kernel methods, Kernel PCA, Kernel Ridge Regression, Grid Search } }
+\begin{center} \textit{ Keywords: Machine Learning, Kernel Methods, Ridge Regression, Principal Components Analysis, Support Vector Machines, Grid Search }  \end{center}
 
-L'obbiettivo di questo report è quello di esplorare le potenzialità dei *kernel methods*, applicandoli a problemi di natura diversa.
+I *kernel methods* sono una famiglia di metodi e modelli noti del *Machine Learning* che, come suggeriti dal loro nome, vanno a sfruttare la cosiddetta *"kernel trick"* per effettuare una mappatura implicita di un *dataset* in uno spazio delle feature ad alta dimensionalità. 
 
-Useremo dei dataset generati artificialmente che vanno a rappresentare problemi di tipologie diverse, tra cui la regressione, riduzione della dimensionalità e la classificazione e sperimenteremo più tecniche del *Machine Learning*, sia *unsupervised* che *supervised*. 
+L'obiettivo di questo report è quello di esplorare le potenzialità dei sopraccitati *kernel methods*, applicandoli a problemi di natura diversa e verificandone l’effettiva efficienza.
 
-Dopodiché confronteremo i risultati per ottenere delle conclusioni sugli effetti dei metodi *kernel* in ambito dell'analisi dei dati.
+Useremo dei dataset generati artificialmente che vanno a rappresentare problemi di tipologie diverse, tra cui la regressione, riduzione della dimensionalità e la classificazione; su questi dataset generati sperimenteremo numerose tecniche del *Machine Learning*, sia *unsupervised* che *supervised*. Tra queste tecniche useremo la *Ridge Regression*, la *PCA* e le *SVM*. Naturalmente, useremo sia la versione *"lineare"* che la loro *"controparte"* *kernel*.
+
+Infine confronteremo i risultati per trarre delle conclusioni sugli effetti dei metodi *kernel* in ambito dell'analisi dei dati.
 
 $\hrulefill$
 
 # Metodologia
 In questa sezione si descrivono i passaggi svolti per questo progetto. 
 
-Si dichiara che sono state usate le implementazioni di *Scikit-Learn* per l'intero progetto.
+Si dichiara che, in termini implementativi dei modelli di Machine Learning, il progetto è stato interamente svolto con *Scikit-Learn* [1].
+
+[1] [Documentazione di Scikit-Learn](https://scikit-learn.org/)
 
 ## Dataset 1: Funzione Non Lineare
 Nel primo problema si genera un dataset a due variabili, di cui una è esplanatoria (i.e. indipendente) e l'altra è la variabile target. Denoteremo queste variabili rispettivamente con $x, y$.
@@ -45,7 +49,7 @@ Come primo approccio abbiamo addestrato e valutato una *ridge regression* non ke
 
 Dopodiché abbiamo iniziato a sperimentare con varie *ridge regression* kernelizzate, facendo variare i suoi iperparametri: in particolare abbiamo usato il kernel gaussiano (*RBF*) e polinomiale.
 
-Per trovare la migliore combinazione dei iperparametri, abbiamo effettuato due *Grid Search* sul dataset di allenamento. Per i modelli kernel abbiamo definito lo seguente spazio degli iperparametri
+Per trovare la migliore combinazione dei iperparametri, abbiamo effettuato due *Grid Search* sul dataset di allenamento. Per i modelli kernel abbiamo definito il seguente spazio degli iperparametri
 
 | Kernel      | Parametro | Spazio                    |
 |-------------|-----------|---------------------------|
@@ -59,7 +63,7 @@ Per trovare la migliore combinazione dei iperparametri, abbiamo effettuato due *
 Infine, per scegliere il miglior modello, abbiamo valutato il migliore modello gaussiano e polinomiale sul dataset di testing.
 
 ## Dataset 2: Due Circonferenze
-Nel problema successivo si affronta uno dei problemi di classificazioni più noti - e quasi tipica per i metodi kernel: il dataset a due dimensioni e a due classi, disposte su due cerchi concentrici (fig. \ref{circles}). 
+Nel problema successivo si affronta uno dei problemi di classificazioni più noti e quasi tipica per i metodi kernel: il dataset a due dimensioni e a due classi, disposte su due cerchi concentrici (fig. \ref{circles}). 
 
 Prima di tutto, abbiamo applicato l'analisi delle componenti principali (*PCA*) sul dataset e proiettando la trasformazione sia in due che una dimensione. Dopodiché, abbiamo *fittato* una macchina a supporto vettoriale soft-margin (*SVM*) non kernelizzato sul dataset del training, e l'abbiamo valutato per fornire una *baseline* per i modelli successivi.
 
