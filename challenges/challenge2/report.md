@@ -3,7 +3,6 @@ title: Machine Learning Challenge 2 Report
 author: Dino Meng [SM3201466]
 output: pdf_document
 colorlinks: true
-mainfont: "Comic Sans MS"
 ---
 
 $\hrulefill$
@@ -18,7 +17,7 @@ L'obiettivo di questo report è quello di esplorare le potenzialità dei sopracc
 
 Useremo dei dataset generati artificialmente che vanno a rappresentare problemi di tipologie diverse, tra cui la regressione, riduzione della dimensionalità e la classificazione; su questi dataset generati sperimenteremo numerose tecniche del *Machine Learning*, sia *unsupervised* che *supervised*. Tra queste tecniche useremo la *Ridge Regression*, la *PCA* e le *SVM*. Naturalmente, useremo sia la versione *"lineare"* che la loro *"controparte"* *kernel*.
 
-Infine confronteremo i risultati per trarre delle conclusioni sugli effetti dei metodi *kernel* in ambito dell'analisi dei dati.
+Infine confronteremo i risultati per trarre delle conclusioni sugli effetti dei metodi *kernel* in ambito dell'analisi dei dati e del *Machine Learning*.
 
 $\hrulefill$
 
@@ -105,7 +104,7 @@ $\hrulefill$
 
 # Risultati
 ## Dataset 1: Funzione Non Lineare
-Riportiamo le prestazioni di tutti i modelli addestrati e valutati (sul test dataset), informato tabulare:
+Riportiamo le prestazioni di tutti i modelli addestrati e valutati (sul test dataset), in formato tabulare:
 
 |         **Kernel**         | **Valutazione** | **Punteggio** |
 |:--------------------------:|:---------------:|:-------------:|
@@ -186,13 +185,13 @@ Infatti, il modello non-kernel (ossia la Ridge Regression) riporta un punteggio 
 
 Prima di concludere il commento sui punteggi dei modelli, osserviamo come variano le predizioni dei modelli a seconda dei valori degli iperparametri scelti. 
 
-Per quanto riguarda il kernel gaussiano (*RBF*), abbiamo fatto variare il parametro $\gamma$ che corrisponde all'ampiezza reciproca del kernel gaussiano [1]. Ovvero, $\gamma = \frac{1}{\sigma^2}$. Osserviamo che per valori piccoli di $\gamma \to 0$, la kernel regression crea le predizioni con una curva più liscia (fig. \ref{variations1}). Al contrario, per valori più grandi la curva si adatta di più alla funzione target ([@eq:nonlinear]). Tuttavia per valori troppo grandi $\gamma \to +\infty$, la curva ha un'ampiezza troppo ridotta: osservando il comportamento del modello sul dataset del testing, otteniamo una linea dritta con dei *"salti"* (fig. \ref{variations1_test}).
+Per quanto riguarda il kernel gaussiano (*RBF*), abbiamo fatto variare il parametro $\gamma$ che corrisponde all'ampiezza reciproca del kernel gaussiano [1]. Ovvero, $\gamma = \frac{1}{\sigma^2}$. Osserviamo che per valori piccoli di $\gamma \to 0$, la kernel regression crea le predizioni con una curva più liscia (fig. \ref{variations1}). Al contrario, per valori più grandi la curva si adatta di più alla funzione target ([@eq:nonlinear]). Per valori grandi $\gamma \to +\infty$, otteniamo invece una forma più *"compatta"* (i.e. i punti stimati sono molto vicini tra di loro) della funzione imparata; tuttavia osservando il comportamento del modello sul dataset del testing, otteniamo una linea dritta con dei *"picchi"* sugli estremi (fig. \ref{variations1_test}).
 
-Da ciò deduciamo che per valori estremi di $\gamma$ corrispondono a casi di *underfitting* e *overfitting*. Per il valore di circa $\gamma = 1.0$, otteniamo una *perfect fit* al problema.
+Da ciò deduciamo che valori estremi di $\gamma$ corrispondono a casi di *underfitting* e *overfitting*. Per il valore di circa $\gamma = 1.0$, otteniamo una *perfect fit* al problema.
 
 Passando ora al kernel polinomiale, abbiamo sperimentato gradi diversi del polinomio e il valore di regolarizzazione reciproca $\alpha = \frac{1}{2C}$ [2]. Chiaramente si evince che aumentando il grado, otteniamo una regressione con più curve e che dunque si adatta meglio al problema (fig. \ref{variations2}). Inoltre, il parametro di regolarizzazione $\alpha$ determina la liscezza della funzione imparata, dove un numero più alto causa una curva più liscia.
 
-Infine, concludiamo che il kernel che si adatta meglio al problema è il kernel gaussiano, con una R2 score del 0.9810 ([@tbl:performances1]). Questa potrebbe essere dovuta alla natura periodica della funzione da imparare ([@eq:nonlinear]), per cui delle curve gaussiane sono in grado di adattarsi meglio.
+Infine, concludiamo che il kernel che si adatta meglio al problema è il kernel gaussiano, con una R2 score del 0.9810 ([@tbl:performances1]). Questa potrebbe essere dovuta alla natura periodica della funzione da imparare ([@eq:nonlinear]), per cui delle curve gaussiane sono in grado di adattarsi meglio alla forma funzionale fornita.
 
 [1] [Documentazione di Scikit-Learn sul Kernel Gaussiano](https://scikit-learn.org/stable/modules/metrics.html#rbf-kernel)
 
