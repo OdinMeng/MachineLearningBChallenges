@@ -39,7 +39,7 @@ $$ {#eq:nonlinear}
 
 Dove $\varepsilon_x$ è il *noise*, generato casualmente seguendo la distribuzione normale $\varepsilon_x \sim \mathcal N(0,1)$. Un *plot* rappresentativo di questa funzione è fornita in figura \ref{function}.
 
-![Non-linear Dataset \label{function}](./images/function.png){ width=35% }
+![Non-linear Dataset \label{function}](./images/function.png){ width=45% }
 
 In totale abbiamo generato 100 punti per il dataset. Abbiamo diviso il dataset in due parti, quello di *training* e quello di *testing*; per la divisione dei dati abbiamo seguito la proporzione 70-30.
 
@@ -59,8 +59,9 @@ Per trovare la migliore combinazione dei iperparametri, abbiamo effettuato due *
 
 : Hyperparameters for GridSearchCV {#tbl:hyperparams1}
 
-
 Infine, per scegliere il miglior modello, abbiamo valutato il migliore modello gaussiano e polinomiale sul dataset di testing.
+
+\newpage
 
 ## Dataset 2: Due Circonferenze
 Nel problema successivo si affronta uno dei problemi di classificazioni più noti e quasi tipica per i metodi kernel: il dataset a due dimensioni e a due classi, disposte su due cerchi concentrici (fig. \ref{circles}). 
@@ -120,6 +121,10 @@ Riportiamo le prestazioni di tutti i modelli addestrati e valutati (sul test dat
 Plottiamo inoltre le predizioni del miglior modello, fornendoci un'idea grafica (fig. \ref{best_model_dataset1})
 
 ![Best Model Predictions \label{best_model_dataset1}](./images/best_model_dataset1.png){ width=75% }
+
+Aggiuntivamente plottiamo le predizioni della *ridge regression* non-kernel (fig. \ref{linear_fit})
+
+![Linear Fit on the Dataset \label{linear_fit}](./images/linear_fit.png){ width=40% }
 
 Infine, riportiamo i grafici delle predizioni dei modelli kernel con la variazione dei loro iperparametri (fig. \ref{variations1}, \ref{variations2}). Precisiamo che per la variazione del kernel polinomiale (fig. \ref{variations2}), la variazione dell'iperparametro `alpha` viene fatta variare col grado del polinomio: la variazione di `alpha` viene rappresentato da sfumature diverse del rosso.
 
@@ -181,13 +186,13 @@ $\hrulefill$
 ## Dataset 1: Funzione Non Lineare
 Osservando le performance dei modelli, è evidente che la kernelizzazione è un fattore necessario per affrontare il problema. 
 
-Infatti, il modello non-kernel (ossia la Ridge Regression) riporta un punteggio R2 basso (0.2263, [@tbl:performances1]) e dalla rappresentazione grafica del dataset si evince che il modello non è abbastanza complesso per spiegare la non-linearità della funzione target (fig. \ref{function}, [@eq:nonlinear]).
+Infatti, il modello non-kernel (ossia la Ridge Regression) riporta un punteggio R2 basso (0.2263, [@tbl:performances1]) e dalla rappresentazione grafica del dataset (fig. \ref{function}) si evince che il modello non è sufficientemente complesso per spiegare la non-linearità della funzione target (fig. \ref{linear_fit}, [@eq:nonlinear]).
 
 Prima di concludere il commento sui punteggi dei modelli, osserviamo come variano le predizioni dei modelli a seconda dei valori degli iperparametri scelti. 
 
 Per quanto riguarda il kernel gaussiano (*RBF*), abbiamo fatto variare il parametro $\gamma$ che corrisponde all'ampiezza reciproca del kernel gaussiano [1]. Ovvero, $\gamma = \frac{1}{\sigma^2}$. Osserviamo che per valori piccoli di $\gamma \to 0$, la kernel regression crea le predizioni con una curva più liscia (fig. \ref{variations1}). Al contrario, per valori più grandi la curva si adatta di più alla funzione target ([@eq:nonlinear]). Per valori grandi $\gamma \to +\infty$, otteniamo invece una forma più *"compatta"* (i.e. i punti stimati sono molto vicini tra di loro) della funzione imparata; tuttavia osservando il comportamento del modello sul dataset del testing, otteniamo una linea dritta con dei *"picchi"* sugli estremi (fig. \ref{variations1_test}).
 
-Da ciò deduciamo che valori estremi di $\gamma$ corrispondono a casi di *underfitting* e *overfitting*. Per il valore di circa $\gamma = 1.0$, otteniamo una *perfect fit* al problema.
+Da ciò deduciamo che valori estremi di $\gamma$ corrispondono a casi di *underfitting* e *overfitting*. Per il valore di circa $\gamma = 1.0$, otteniamo una *fit* ideale sul problema.
 
 Passando ora al kernel polinomiale, abbiamo sperimentato gradi diversi del polinomio e il valore di regolarizzazione reciproca $\alpha = \frac{1}{2C}$ [2]. Chiaramente si evince che aumentando il grado, otteniamo una regressione con più curve e che dunque si adatta meglio al problema (fig. \ref{variations2}). Inoltre, il parametro di regolarizzazione $\alpha$ determina la liscezza della funzione imparata, dove un numero più alto causa una curva più liscia.
 
@@ -228,7 +233,7 @@ $\hrulefill$
 # Conclusione
 I metodi *kernel* sono degli ottimi e indispensabili strumenti per affrontare problemi che presentano delle forme geometriche intrinsecamente complesse, come funzioni non-lineari ([@eq:nonlinear]) o nuvole di dati non linearmente separabili (fig. \ref{circles}).
 
-Ciò non vuol dire i metodi *kernel* sono privi di difetti e possono essere sempre applicati senza problemi. A parte il possibile elevato costo computazionale con dei dataset particolarmente larghi, che non è il caso di questo studio in quanto abbiamo preso dati con un numero di esempi abbastanza piccoli (al massimo 1000), c'è anche la possibilità che i modelli *overfittino* e causano peggiori prestazioni di predizione. Come verificato nel terzo problema, questo potrebbe accadere in presenza di più variabili.
+Ciò non vuol dire i metodi *kernel* sono privi di difetti e possono essere sempre applicati senza problemi. A parte il possibile elevato costo computazionale con dei dataset particolarmente larghi, che non è il caso di questo studio in quanto abbiamo preso dati con un numero di esempi abbastanza piccoli (al massimo 1000), c'è anche la possibilità che i modelli *overfittino* e abbiano peggiori prestazioni. Come verificato nel terzo problema, questo potrebbe accadere in presenza di più variabili.
 
 Inoltre, un altro problema riscontrato con i problemi *kernel* è l'alta sensibilità agli iperparametri. Come notato nella seconda parte, i modelli cambiano forma (e dunque le loro prestazioni) in una maniera drastica a variare degli parametri scelti (fig. \ref{variations1}, \ref{variations2}). Pertanto, di norma potrebbe essere necessaria avere delle conoscenze sul dataset - soppratutto la loro disposizione geometrica - oppure bisogna fare delle ricerche estensive sullo spazio degli iperparametri, usando ad esempio GridSearch.
 

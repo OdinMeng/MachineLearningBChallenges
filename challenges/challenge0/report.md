@@ -2,6 +2,7 @@
 title: Machine Learning Challenge 0 Report
 author: Dino Meng [SM3201466]
 output: pdf_document
+colorlinks: true
 ---
 
 $\hrulefill$
@@ -34,7 +35,7 @@ In questo progetto la variable `State` diventerà la nostra *"target variable"*,
 
 Quindi nei prossimi passaggi vogliamo trasformare il dataset per presetare un *problema di classificazione binaria*. In particolare scegliamo `California` e `Florida` come le classi da predirre.
 
-Per la trasformazione abbiamo usato la seguente *pipeline*:
+Per la trasformazione abbiamo seguito la *pipeline* che consiste in:
 
 * Filtrare le righe che contengano `State` uguale a `California` o `Florida`
 

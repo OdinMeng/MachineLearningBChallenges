@@ -2,6 +2,7 @@
 title: Machine Learning Challenge 1 Report
 author: Dino Meng [SM3201466]
 output: pdf_document
+colorlinks: true
 ---
 
 $\hrulefill$
@@ -102,7 +103,7 @@ La *PCA* non è riuscita a trasformare il dataset originario in un problema che 
 
 Per quanto riguarda invece la *T-SNE*, questa riesce invece a trasformare il dataset originario in un dataset linearmente separabile, infatti è possibile scandire una retta che divida le due classi (ad eccezione di alcuni punti separabili) (fig. \ref{TSNE}). Infatti, il *clustering* gerarchico è in grado di riprodurre quasi fedelmente le clasi orinarie (fig. \ref{clustering_TSNE}). 
 
-Inoltre, *DBSCAN* è in grado di rilevare efficentemente dei punti *noisy* del dataset, tuttavia non è in grado di riprodurre le classi del dataset originale (fig. \ref{DBSCAN}).
+Inoltre, *DBSCAN* è in grado di rilevare efficentemente dei punti *noisy* del dataset, tuttavia non è in grado di riprodurre le classi del dataset originale (fig. \ref{DBSCAN}). Questo dovrebbe essere dovuto al fatto che *DBSCAN* è dipendente dalla nozione di *metrica*, che viene *"persa"* quando effettuiamo delle trasformazioni con la *T-SNE*.
 
 Adesso passiamo al *supervised learning*. Commentiamo solo i risultati prodotti dal dataset originario, ovvero senza usare le trasformazioni *PCA* o *T-SNE*. 
 
@@ -123,6 +124,6 @@ Il dataset che contiene informazioni sulle immagini delle banconote è complesso
 
 Un modo per migliorare i modelli predittivi è di includere la proiezione dei dati con *T-SNE* nella fase della preparazione dei dati: infatti effettuando nuovamente la valutazione dei modelli si ottiene globalmente un buon incremento, da una media globale del 0.7987 alla media globale 0.9934: *Naïve Bayes* ha ottenuto l'incremento più drastico, dal 0.7987 al 0.9753.
 
-Tuttavia, per giustificare in una maniera più rigorosa l'uso della *T-SNE* è necessario prendere ulteriori misure precauzionali; tra cui utilizzare la *T-SNE* usando parametri più diversi (in particolare con Scikit-Learn, il parametro più importante è `perplexity`) e poi di rivalutare i modelli. Questo ci assicurerebbe che i modelli non stiano *overfittando* sulle distorsioni prodotte dalla *T-SNE*, dunque validando effettivamente la robustezza della tecnica usata.
+Tuttavia, per giustificare in una maniera più rigorosa l'uso della *T-SNE* è necessario prendere ulteriori misure precauzionali; tra cui utilizzare la *T-SNE* usando parametri più diversi (in particolare con Scikit-Learn, il parametro più importante è `perplexity`) e poi di rivalutare i modelli. Questo ci assicurerebbe che i modelli non stiano *overfittando* sulle distorsioni prodotte dalla *T-SNE*, validando effettivamente la robustezza della tecnica usata.
 
 Un altro modo per garantirci la robustezza di questa tecnica è quella di includere metodi di valutazione dei modelli più robusti, come la convalida incrociata.
