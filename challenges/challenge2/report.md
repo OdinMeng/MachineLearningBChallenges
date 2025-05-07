@@ -74,8 +74,6 @@ Dopodiché abbiamo applicato la *PCA* kernelizzata usando il kernel gaussiano co
 
 ![Two Circles \label{circles}](./images/circles.png){ width=35% }
 
-\newpage
-
 ## Dataset 3: Classificazione
 Per l'ultimo problema abbiamo generato un dataset con la funzione `make_classification()` di Scikit-Learn (modulo `datasets`), che va a generare un problema di classificazione a due classi con 20 variabili.
 
@@ -120,13 +118,15 @@ Riportiamo le prestazioni di tutti i modelli addestrati e valutati (sul test dat
 
 Plottiamo inoltre le predizioni del miglior modello, fornendoci un'idea grafica (fig. \ref{best_model_dataset1})
 
-![Best Model Predictions \label{best_model_dataset1}](./images/best_model_dataset1.png){ width=75% }
-
 Aggiuntivamente plottiamo le predizioni della *ridge regression* non-kernel (fig. \ref{linear_fit})
 
-![Linear Fit on the Dataset \label{linear_fit}](./images/linear_fit.png){ width=40% }
 
-Infine, riportiamo i grafici delle predizioni dei modelli kernel con la variazione dei loro iperparametri (fig. \ref{variations1}, \ref{variations2}). Precisiamo che per la variazione del kernel polinomiale (fig. \ref{variations2}), la variazione dell'iperparametro `alpha` viene fatta variare col grado del polinomio: la variazione di `alpha` viene rappresentato da sfumature diverse del rosso.
+Infine, riportiamo i grafici delle predizioni dei modelli kernel con la variazione dei loro iperparametri (fig. \ref{variations1}, \ref{variations2}). Precisiamo che per la variazione del kernel polinomiale (fig. \ref{variations2}), la variazione dell'iperparametro `alpha` viene fatta variare per ogni grado del polinomio: la variazione di `alpha` viene rappresentato da più curve (che rappresentano le predizioni del modello) con sfumature leggermente diverse, ove una sfumatura più chiara indica un maggiore valore di `alpha`.
+
+![Best Model Predictions \label{best_model_dataset1}](./images/best_model_dataset1.png){ width=75% }
+
+
+![Linear Fit on the Dataset \label{linear_fit}](./images/linear_fit.png){ width=40% }
 
 ![RBF Kernel Variations \label{variations1}](./images/variations1.png)
 
