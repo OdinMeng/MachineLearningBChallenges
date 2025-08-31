@@ -4,8 +4,7 @@
     - Parlo del clustering spettrale in generale, alcune delle sue debolezze (Laplaciana?)
     - Parlo del clustering spettrale SVD-based, basandomi su quel paper
     - Poi scrivo codici (implementazione di SVD-based spectral clustering; per spectral clustering uso SKLEARN (???) o anche self-implemented) e sperimento, commento risultati
-    - Data sperimentale: una foto (?), tipica applicazione ambita del spectral-based clustering
-    - O uso dataset artificiali strani
+    - uso dataset artificiali strani
 
 STATUS:
 - approvata
