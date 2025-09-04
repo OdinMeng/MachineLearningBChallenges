@@ -87,14 +87,16 @@ Applications:
 
 # Spectral Clustering (Remark)
 
-> **Remark**: it can be proved that the algorithm previously described solves the optimal-cut problem of the graph $G$
+> **Remark**: it can be proved that the algorithm previously described solves the relaxed version of the min. $k$-cuts problem of the graph $G$
 
-![center](./presentation_images/1_xm09B5tFfN8kLe2t9Vab2w.png)
+![width:450px center](./presentation_images/Minimum_k-cut.svg.png)
 
 ---
 
 # SVD-Based Spectral Clustering (Idea)
 **IDEA.** Instead of finding the eigenvalues of the Laplacian $L = D-A$, diagonalize the matrixes $A^T A$ and $AA^T$ (thus determining a SVD of $A$)
+
+Proposed by Zhixian Jia, in the paper "The reaserch on parameters of spectral clustering based on SVD" (2013)
 
 ---
 
@@ -114,7 +116,7 @@ Algorithm:
 # Main Results: Synthetic Datasets
 
 Three main experiments, based on synthetically generated datasets:
-1. Compare the performances between Spectral Clustering and its SVD variant
+1. Compare the performances between Spectral Clustering and its SVD variant. Two similarity graph construction methods: Gaussian Kernel (fully connected graph) and KNN-graph.
 2. Test the SVD-Based Clustering on non-linear datasets (with variations on the parameters)
 3. Deduce the parameter $k$ from the singular values contained in $\Sigma$
 
@@ -138,12 +140,22 @@ Three main experiments, based on synthetically generated datasets:
 
 ---
 
-# Experiment 1
-**Similarity Measure**: Gaussian Kernel $s(x,y)=\exp{(\lVert x-y\rVert_2 / (2\sigma)^2)}$ with $\sigma=1$
+# Experiment 1.1
+**Similarity Measure**: Gaussian Kernel $s(x,y)=\exp{(\lVert x-y\rVert_2 / (2\sigma)^2)}$ with $\sigma=1.7$
 
 ![center](./presentation_images/results_1.png)
 
 ---
+
+# Experiment 1.2
+**Similarity Measure**: KNN-embedding. For classical SC, $k=60$; for SVD-Based SC, $k=15$.
+
+![width:900px center](./presentation_images/results_1_knn.png)
+
+
+---
+
+
 
 # Expriment 1 (Remarks)
 
@@ -152,7 +164,7 @@ Three main experiments, based on synthetically generated datasets:
 - To fix the issue with the classical Spectral Clustering, other approaches could have been taken:
     - Use another method to construct the similarity graph (e.g. K-nearest neighbours)
     - Use the Normalized Laplacian instead
-
+- In fact, in experiment 1.2. both methods were able to handle the dataset with the KNN-embedding; however, the SVD-variant method requires a smaller $k$ value
 
 ---
 
@@ -207,18 +219,18 @@ $$
 
 # Experiment 3: Analysis
 
-![center](./presentation_images/parameters_2.png)
+![center](./presentation_images/parameters_1.png)
 
 ---
 
 # Experiment 3: Analysis
 
-![center](./presentation_images/parameters_1.png)
+![center](./presentation_images/parameters_2.png)
 
 ---
 
 # Experiment 3: Results
 
-Therefore we deduced the variables $k=4$ and $\sigma=1$
+Therefore we deduced the variables $k=3$ and $\sigma=1$
 
 ![center](./presentation_images/results_3.png)
